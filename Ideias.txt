@@ -1,11 +1,19 @@
-Sprites
+Sprites:
 -->Player: Millennium Falcon
 -->Enemy: Tie Fighters
--->Enemy Big: Death Star
+-->Enemy Boss: Death Star
 -->Background: space
+-->Projectile: laser
 
-Mecanicas
--->
--->
--->
--->
+Mecanicas/Passos a seguir:
+-->Movimento player (left/right com teclado)
+-->Movimento inimigo (left/right automatico)
+-->Disparo player
+-->Disparo inimigo
+-->Inserção de inimigo mais forte
+-->Movimento inimigo forte (left/right automatico)
+-->Disparo inimigo forte
+-->Score
+-->Vida Player
+-->Menu
+-->Game Over
