@@ -1,0 +1,11 @@
+Sprites
+-->Player: Millennium Falcon
+-->Enemy: Tie Fighters
+-->Enemy Big: Death Star
+-->Background: space
+
+Mecanicas
+-->
+-->
+-->
+-->
