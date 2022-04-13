@@ -1,4 +1,4 @@
-Sprites:
+Sprites: (FEITO)
 -->Player: Millennium Falcon
 -->Enemy: Tie Fighters
 -->Enemy Boss: Death Star
