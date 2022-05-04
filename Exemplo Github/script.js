@@ -49,17 +49,17 @@ var saucerSound = new Howl({
 });
 
 function preload() {
-    this.load.image("shooter", "assets/cannon.png")
-    this.load.image("alien", "assets/enemy.svg")
-    this.load.image("bullet", "assets/bullet.svg")
-    this.load.image("saucer", "assets/saucer.svg")
+    this.load.image("shooter", "asset/falcon.png")
+    this.load.image("alien", "asset/tief.png")
+    this.load.image("bullet", "asset/laser_azul.png")
+    this.load.image("saucer", "asset/deathstar.png")
 }
 
 var score = 0;
 var lives = 3;
 var isStarted = false;
-var barriers = [];
 var ufoCount = 0;
+
 function create() {
     scene = this;
     cursors = scene.input.keyboard.createCursorKeys();
@@ -83,10 +83,6 @@ function create() {
     startText = scene.add.text(400, 300, "Click to Play", { fontSize: '18px', fill: '#FFF' }).setOrigin(0.5)
 
     this.input.keyboard.on('keydown-SPACE', shoot);
-
-    barriers.push(new Barrier(scene, 50, 450))
-    barriers.push(new Barrier(scene, 370, 450))
-    barriers.push(new Barrier(scene, 690, 450))
 
     this.input.on('pointerdown', function () {
         if (isStarted == false) {
