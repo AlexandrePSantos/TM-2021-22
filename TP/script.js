@@ -29,7 +29,7 @@ enemyInfo = {
         left: 60 
     },
     padding: 5
-}
+};
 
 function preload() {
     //carregamento de imagens
