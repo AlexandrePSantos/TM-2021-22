@@ -51,7 +51,7 @@ var deathstarSound = new Howl({
 function preload() {
     this.load.image("mFalcon", "asset/falcon.png")
     this.load.image("alien", "asset/tief.png")
-    this.load.image("bullet", "asset/laser_azul.png")
+    this.load.image("laser", "asset/laser_azul.png")
     this.load.image("deathstar", "asset/deathstar.png")
     this.load.image("background", "asset/back.jpg")
 }
@@ -119,7 +119,7 @@ function update() {
 function shoot() {
     if (isStarted == true) {
         if (isShooting === false) {
-            manageBullet(scene.physics.add.sprite(player.x, player.y, "bullet"))
+            managelaser(scene.physics.add.sprite(player.x, player.y, "laser"))
             isShooting = true;
             shootSound.play()
         }
@@ -173,15 +173,15 @@ function moveenemies() {
     }
 }
 
-function manageBullet(bullet) {
-    bullet.setVelocityY(-380);
+function managelaser(laser) {
+    laser.setVelocityY(-380);
 
 
     var i = setInterval(function () {
         enemies.children.each(function (enemy) {
 
-            if (checkOverlap(bullet, enemy)) {
-                bullet.destroy();
+            if (checkOverlap(laser, enemy)) {
+                laser.destroy();
                 clearInterval(i)
                 isShooting = false
                 enemy.destroy()
@@ -190,15 +190,15 @@ function manageBullet(bullet) {
 
                 explosionSound.play()
 
-                if ((score - ufoCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
+                if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
                     end("Win")
                 }
             }
 
         }, this);
         for (var step = 0; step < barriers.length; step++) {
-            if (barriers[step].checkCollision(bullet)) {
-                bullet.destroy();
+            if (barriers[step].checkCollision(laser)) {
+                laser.destroy();
                 clearInterval(i)
                 isShooting = false
 
@@ -207,7 +207,7 @@ function manageBullet(bullet) {
 
                 explosionSound.play()
 
-                if ((score - ufoCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
+                if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
                     end("Win")
                 }
 
@@ -217,8 +217,8 @@ function manageBullet(bullet) {
 
         for (var step = 0; step < deathstars.length; step++) {
             var deathstar = deathstars[step];
-            if (checkOverlap(bullet, deathstar)) {
-                bullet.destroy();
+            if (checkOverlap(laser, deathstar)) {
+                laser.destroy();
                 clearInterval(i)
                 isShooting = false
 
@@ -227,7 +227,7 @@ function manageBullet(bullet) {
 
                 explosionSound.play()
 
-                if ((score - ufoCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
+                if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
                     end("Win")
                 }
 
@@ -235,27 +235,27 @@ function manageBullet(bullet) {
                 deathstar.isDestroyed = true;
                 deathstarSound.stop();
                 score++;
-                ufoCount++;
+                figtherCount++;
             }
         }
     }, 10)
-    scene.physics.add.overlap(bullet, playerCollision, function () {
-        bullet.destroy();
+    scene.physics.add.overlap(laser, playerCollision, function () {
+        laser.destroy();
         clearInterval(i);
         explosionSound.play();
         isShooting = false
     })
 
 }
-var enemyBulletVelo = 200;
-function manageEnemyBullet(bullet, enemy) {
+var enemylaserVelo = 200;
+function manageEnemylaser(laser, enemy) {
     var angle = Phaser.Math.Angle.BetweenPoints(enemy, player);
-    scene.physics.velocityFromRotation(angle, enemyBulletVelo, bullet.body.velocity);
-    enemyBulletVelo = enemyBulletVelo + 2
+    scene.physics.velocityFromRotation(angle, enemylaserVelo, laser.body.velocity);
+    enemylaserVelo = enemylaserVelo + 2
     var i = setInterval(function () {
 
-        if (checkOverlap(bullet, player)) {
-            bullet.destroy();
+        if (checkOverlap(laser, player)) {
+            laser.destroy();
             clearInterval(i);
             lives--;
             livesText.setText("Lives: " + lives);
@@ -266,8 +266,8 @@ function manageEnemyBullet(bullet, enemy) {
             }
         }
         for (var step = 0; step < barriers.length; step++) {
-            if (barriers[step].checkCollision(bullet)) {
-                bullet.destroy();
+            if (barriers[step].checkCollision(laser)) {
+                laser.destroy();
                 clearInterval(i)
                 isShooting = false
 
@@ -282,8 +282,8 @@ function manageEnemyBullet(bullet, enemy) {
             }
         }
     }, 10)
-    scene.physics.add.overlap(bullet, figtherCollision, function () {
-        bullet.destroy();
+    scene.physics.add.overlap(laser, figtherCollision, function () {
+        laser.destroy();
         explosionSound.play();
         clearInterval(i);
     })
@@ -302,7 +302,7 @@ setInterval(enemyFire, 3000)
 function enemyFire() {
     if (isStarted === true) {
         var enemy = enemies.children.entries[Phaser.Math.Between(0, enemies.children.entries.length - 1)];
-        manageEnemyBullet(scene.physics.add.sprite(enemy.x, enemy.y, "bullet"), enemy)
+        manageEnemylaser(scene.physics.add.sprite(enemy.x, enemy.y, "laser"), enemy)
     }
 }
 
@@ -322,7 +322,7 @@ setInterval(function () {
         for (var i = 0; i < deathstars.length; i++) {
             var deathstar = deathstars[i];
             if (deathstar.isDestroyed == false) {
-                manageEnemyBullet(scene.physics.add.sprite(deathstar.x, deathstar.y, "bullet"), deathstar)
+                manageEnemylaser(scene.physics.add.sprite(deathstar.x, deathstar.y, "laser"), deathstar)
 
             } else {
                 deathstars.splice(i, 1);
