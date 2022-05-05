@@ -63,11 +63,11 @@ var ufoCount = 0;
 function create() {
     scene = this;
     cursors = scene.input.keyboard.createCursorKeys();
-    keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    keyA = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     isShooting = false;
-    this.input.keyboard.addCapture('SPACE');
-    enimies = this.physics.add.staticGroup();
+    scene.input.keyboard.addCapture('SPACE');
+    enimies = scene.physics.add.staticGroup();
     playerLava = scene.add.rectangle(0, 0, 800, 10, 0x000).setOrigin(0)
     enemyLava = scene.add.rectangle(0, 590, 800, 10, 0x000).setOrigin(0)
     saucerLava = scene.add.rectangle(790, 0, 10, 600, 0x000).setOrigin(0)
