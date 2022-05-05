@@ -49,7 +49,7 @@ var saucerSound = new Howl({
 });
 
 function preload() {
-    this.load.image("shooter", "asset/falcon.png")
+    this.load.image("mFalcon", "asset/falcon.png")
     this.load.image("alien", "asset/tief.png")
     this.load.image("bullet", "asset/laser_azul.png")
     this.load.image("saucer", "asset/deathstar.png")
@@ -75,8 +75,8 @@ function create() {
     scene.physics.add.existing(enemyLava)
     scene.physics.add.existing(saucerLava)
 
-    shooter = scene.physics.add.sprite(400, 560, 'shooter');
-    shooter.setCollideWorldBounds(true)
+    player = scene.physics.add.sprite(400, 560, 'mFalcon');
+    player.setCollideWorldBounds(true)
 
     scoreText = scene.add.text(16, 16, "Score: " + score, { fontSize: '18px', fill: '#FFF' })
     livesText = scene.add.text(696, 16, "Lives: " + lives, { fontSize: '18px', fill: '#FFF' })
@@ -100,15 +100,15 @@ function create() {
 function update() {
     if (isStarted == true) {
         if (cursors.left.isDown || keyA.isDown) {
-            shooter.setVelocityX(-160);
+            player.setVelocityX(-160);
 
         }
         else if (cursors.right.isDown || keyD.isDown) {
-            shooter.setVelocityX(160);
+            player.setVelocityX(160);
 
         }
         else {
-            shooter.setVelocityX(0);
+            player.setVelocityX(0);
 
         }
     }
@@ -117,7 +117,7 @@ function update() {
 function shoot() {
     if (isStarted == true) {
         if (isShooting === false) {
-            manageBullet(scene.physics.add.sprite(shooter.x, shooter.y, "bullet"))
+            manageBullet(scene.physics.add.sprite(player.x, player.y, "bullet"))
             isShooting = true;
             shootSound.play()
         }
@@ -247,12 +247,12 @@ function manageBullet(bullet) {
 }
 var enemyBulletVelo = 200;
 function manageEnemyBullet(bullet, enemy) {
-    var angle = Phaser.Math.Angle.BetweenPoints(enemy, shooter);
+    var angle = Phaser.Math.Angle.BetweenPoints(enemy, player);
     scene.physics.velocityFromRotation(angle, enemyBulletVelo, bullet.body.velocity);
     enemyBulletVelo = enemyBulletVelo + 2
     var i = setInterval(function () {
 
-        if (checkOverlap(bullet, shooter)) {
+        if (checkOverlap(bullet, player)) {
             bullet.destroy();
             clearInterval(i);
             lives--;
